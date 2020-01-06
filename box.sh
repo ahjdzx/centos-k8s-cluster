@@ -15,28 +15,10 @@ echo 'sync time'
 systemctl start ntpd
 systemctl enable ntpd
 
-# 域名解析
-echo 'set host name resolution'
-cat >> /etc/hosts <<EOF
-192.168.205.10 node-master
-192.168.205.11 node-worker-1
-EOF
-cat /etc/hosts
-
 # 关闭selinux
 echo 'disable selinux'
 setenforce 0
 sed -i '/SELINUX=/s/enforcing/disabled/' /etc/selinux/config
-
-# 关闭防火墙
-echo 'disable firewall'
-systemctl stop firewalld
-systemctl disable firewalld
-
-# 关闭swap分区
-echo 'disable swap'
-swapoff -a
-sed -i '/swap/s/\(.*\)/#&/g' /etc/fstab
 
 # 开启iptable转发
 echo 'enable iptable kernel parameter'
@@ -47,6 +29,24 @@ net.ipv4.ip_forward=1
 EOF
 modprobe br_netfilter
 sysctl -p /etc/sysctl.d/kubernetes.conf
+
+# 域名解析
+echo 'set host name resolution'
+cat >> /etc/hosts <<EOF
+192.168.205.10 node-master
+192.168.205.11 node-worker-1
+EOF
+cat /etc/hosts
+
+# 关闭防火墙
+echo 'disable firewall'
+systemctl stop firewalld
+systemctl disable firewalld
+
+# 关闭swap分区
+echo 'disable swap'
+swapoff -a
+sed -i '/swap/s/\(.*\)/#&/g' /etc/fstab
 
 # create group if not exists
 egrep "^docker" /etc/group >& /dev/null

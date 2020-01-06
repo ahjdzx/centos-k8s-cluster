@@ -6,7 +6,7 @@ mirror_repo="gcr.azk8s.cn/google_containers"
 
 for i in $(kubeadm config images list --kubernetes-version ${VERSION} | awk -F'/' '{print $2}' | egrep "proxy|pause")
 do
-  docker pull ${mirror_repo}/$i
-  docker tag ${mirror_repo}/$i ${gcr_repo}/$i
-  docker rmi ${mirror_repo}/$i
+    docker pull ${mirror_repo}/$i
+    docker tag ${mirror_repo}/$i ${gcr_repo}/$i
+    docker rmi ${mirror_repo}/$i
 done

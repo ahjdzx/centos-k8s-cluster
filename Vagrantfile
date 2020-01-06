@@ -23,6 +23,9 @@ servers = [
 ]
 
 Vagrant.configure("2") do |config|
+  config.vm.box_check_update = false
+  config.vm.synced_folder ".", "/vagrant", type: "rsync"
+
   servers.each do |opts|
     config.vm.define opts[:name] do |node|
       config.vbguest.auto_update = false
