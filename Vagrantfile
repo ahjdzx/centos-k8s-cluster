@@ -19,6 +19,15 @@ servers = [
     :eth1 => "192.168.205.11",
     :mem => "2048",
     :cpu => "2"
+  },
+  {
+    :name => "node-worker-2",
+    :type => "worker",
+    :box => "centos/7",
+    :box_version => "1905.1",
+    :eth1 => "192.168.205.12",
+    :mem => "2048",
+    :cpu => "2"
   }
 ]
 

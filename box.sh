@@ -35,6 +35,7 @@ echo 'set host name resolution'
 cat >> /etc/hosts <<EOF
 192.168.205.10 node-master
 192.168.205.11 node-worker-1
+192.168.205.12 node-worker-2
 EOF
 cat /etc/hosts
 
